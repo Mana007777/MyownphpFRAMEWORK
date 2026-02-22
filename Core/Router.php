@@ -1,6 +1,8 @@
 <?php
 namespace app\Core;
 
+use app\core\Application;
+
 class Router
 {
     public Request $request;
@@ -22,9 +24,19 @@ class Router
         if($callback === false){
             http_response_code(404);
             return 'Not found';
-            exit;
         }
-        echo call_user_func($callback);
+        if(is_string($callback)){
+            return $this->renderView($callback);
+        }
+        return call_user_func($callback);
     }
+
+    protected function renderView($view)
+    {
+        $layoutContent = $this->layoutContent();
+       include_once Application::$ROOT_DIR."/Views/$view.php";
+    }
+
+    protected function layoutContent(){}
 
 }
