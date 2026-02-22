@@ -1,9 +1,7 @@
 <?php
 
-
-namespace app\Public;
 require_once __DIR__.'/../vendor/autoload.php';
-use app\core\Application;
+use app\Core\Application;
 
 
 $app = new Application(dirname(__DIR__));
