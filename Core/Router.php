@@ -18,6 +18,13 @@ class Router
     public function resolve(){
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
+        $callback = $this->routes[$method][$path] ?? false;
+        if($callback === false){
+            http_response_code(404);
+            return 'Not found';
+            exit;
+        }
+        echo call_user_func($callback);
     }
 
 }
