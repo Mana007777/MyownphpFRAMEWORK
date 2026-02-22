@@ -1,0 +1,16 @@
+{
+    "name": "marllax/m-yown-framework",
+    "autoload": {
+        "psr-4": {
+            "app\\":"./"
+        }
+    },
+
+    "authors": [
+        {
+            "name": "mana007777",
+            "email": "e7ifubbb@gmail.com"
+        }
+    ],   
+    "require": {}
+}
