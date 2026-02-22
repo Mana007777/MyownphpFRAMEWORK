@@ -2,19 +2,28 @@
 namespace app\Core;
 
 use app\core\Application;
+use app\core\Response;
 
 class Router
 {
     public Request $request;
     protected array $routes = [];  
+
+    public Response $response;
     
-    public function __construct(Request $request)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
     public function get($path, $callback)
     {
         $this->routes['get'][$path] = $callback;
+    }
+
+    public function post($path, $callback)
+    {
+        $this->routes['post'][$path] = $callback;
     }
 
     public function resolve(){
@@ -22,8 +31,8 @@ class Router
         $method = $this->request->getMethod();
         $callback = $this->routes[$method][$path] ?? false;
         if($callback === false){
-            http_response_code(404);
-            return 'Not found';
+            $this->response->setStatusCode(404);
+            return "Not Found";
         }
         if(is_string($callback)){
             return $this->renderView($callback);
@@ -34,9 +43,22 @@ class Router
     protected function renderView($view)
     {
         $layoutContent = $this->layoutContent();
-       include_once Application::$ROOT_DIR."/Views/$view.php";
+        $viewContent = $this->renderOnlyView($view);
+        return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
-    protected function layoutContent(){}
+    protected function layoutContent(){
+        ob_start();
+        include_once Application::$ROOT_DIR."/Views/Layout/main.php";
+        return ob_get_clean();      
+    }
+
+    protected function renderOnlyView($view)
+    {
+        ob_start();
+        include_once Application::$ROOT_DIR."/Views/$view.php";
+        return ob_get_clean();
+    }
+
 
 }
