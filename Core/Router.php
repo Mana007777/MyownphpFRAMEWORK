@@ -1,4 +1,5 @@
 <?php
+
 namespace app\Core;
 
 use app\core\Application;
@@ -7,10 +8,10 @@ use app\core\Response;
 class Router
 {
     public Request $request;
-    protected array $routes = [];  
+    protected array $routes = [];
 
     public Response $response;
-    
+
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
@@ -26,45 +27,45 @@ class Router
         $this->routes['post'][$path] = $callback;
     }
 
-    public function resolve(){
+    public function resolve()
+    {
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
         $callback = $this->routes[$method][$path] ?? false;
-        if($callback === false){
+        if ($callback === false) {
             $this->response->setStatusCode(404);
             return $this->renderView("_404");
         }
-        if(is_string($callback)){
+        if (is_string($callback)) {
             return $this->renderView($callback);
         }
         return call_user_func($callback);
     }
 
-    protected function renderView($view)
+    public function renderView($view)
     {
         $layoutContent = $this->layoutContent();
         $viewContent = $this->renderOnlyView($view);
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
-        protected function renderContent($viewContent)
+    public function renderContent($viewContent)
     {
         $layoutContent = $this->layoutContent();
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
-    protected function layoutContent(){
-        ob_start();
-        include_once Application::$ROOT_DIR."/Views/Layout/main.php";
-        return ob_get_clean();      
-    }
-
-    protected function renderOnlyView($view)
+    public function layoutContent()
     {
         ob_start();
-        include_once Application::$ROOT_DIR."/Views/$view.php";
+        include_once Application::$ROOT_DIR . "/Views/Layout/main.php";
         return ob_get_clean();
     }
 
-
+    public function renderOnlyView($view)
+    {
+        ob_start();
+        include_once Application::$ROOT_DIR . "/Views/$view.php";
+        return ob_get_clean();
+    }
 }
