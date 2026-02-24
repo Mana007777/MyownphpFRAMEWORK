@@ -4,6 +4,7 @@ namespace app\Controllers;
 
 use app\Core\Application;
 use app\Core\Controller;
+use app\Core\Request;
 
 class SiteController extends Controller
 {
@@ -18,8 +19,8 @@ class SiteController extends Controller
         ];
         return $this->render('home', $param);
     }
-    public function handleContact()
-    {
-        return 'Handling contact page';
+    public function handleContact(Request $request){
+        $body = $request->getbody();
+        return 'Handling contact page with body: ' . json_encode($body);
     }
 }
