@@ -3,19 +3,20 @@
 namespace app\Controllers;
 
 use app\Core\Application;
+use app\Core\Controller;
 
-class SiteController
+class SiteController extends Controller
 {
 
     public function contact(){
-        return Application::$app->router->renderView('contact');
+        return $this->render('contact');
     }
 
     public function home(){
         $param = [
             'name' => 'Marllax'
         ];
-        return Application::$app->router->renderView('home', $param);
+        return $this->render('home', $param);
     }
     public function handleContact()
     {
