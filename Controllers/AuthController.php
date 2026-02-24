@@ -3,16 +3,23 @@
 namespace App\Controllers;
 
 use app\Core\Controller;
+use app\Core\Request;
 
 class AuthController extends Controller
 {
     public function login()
     {
+        $this->setLayout('auth');
         return $this->render('login');
     }
 
-    public function register()
+    public function register(Request $request)
     {
+        if ($request->isPOST()) {
+         return 'Form submitted';   
+        }
+        $this->setLayout('auth');
+
         return $this->render('register');
     }
 }
