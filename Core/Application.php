@@ -13,15 +13,15 @@ class Application
     public static Application $app;
 
     public Controller $controller;
-    public Database $database;
-    public function __construct($rootPath)
+    public Database $db;
+    public function __construct($rootPath , array $config = [])
     {
     self::$ROOT_DIR = $rootPath;  
     self::$app = $this;  
     $this->request = new Request();
     $this->response = new Response();
     $this->router = new Router($this->request, $this->response);
-    $this->database = new Database();
+    $this->db = new Database($config['db'] ?? []);
     }
 
 
