@@ -5,6 +5,7 @@ namespace App\Controllers;
 use app\Core\Controller;
 use app\Core\Request;
 use app\Models\registerModel;
+
 class AuthController extends Controller
 {
     public function login()
@@ -15,18 +16,22 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $errors = [];
-        if ($request->isPOST()) {
-            $registerModel = new registerModel();
+        $registerModel = new registerModel();
 
-            $firstName = $request->getBody()['firstName'] ?? '';
-            if (!$firstName) {
-                $errors['firstName'] = 'First name is required';
-             }
-         return 'Form submitted';   
+        if ($request->isPOST()) {
+            $registerModel->loadData($request->getBody());
+
+            if ($registerModel->validate() && $registerModel->register()) {
+                return 'success';
+            }
+            return $this->render('register', [
+                'model' => $registerModel
+            ]);
         }
         $this->setLayout('auth');
 
-        return $this->render('register');
+        return $this->render('register', [
+            'model' => $registerModel
+        ]);
     }
 }
