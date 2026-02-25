@@ -27,10 +27,10 @@ abstract class Model
 
     foreach ($this->rules() as $attrib => $rule) {
         $value = $this->{$attrib};
-        foreach ($rule as $rule) {
-            $ruleName = $rule;
+        foreach ($rule as $rules) {
+            $ruleName = $rules;
             if(!is_string($ruleName)){
-                $ruleName = $rule[0];
+                $ruleName = $rules[0];
             }
             if($ruleName === self::RULE_REQUIRED && !$value){
                 $this->addError($attrib, SELF::RULE_REQUIRED);
@@ -38,18 +38,19 @@ abstract class Model
             if($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)){
                 $this->addError($attrib, self::RULE_EMAIL);
             }
-            if($ruleName === self::RULE_MIN && strlen($value) < $rule['min']){
-                $this->addError($attrib, self::RULE_MIN, ['min' => $rule['min']]);
+            if($ruleName === self::RULE_MIN && strlen($value) < $rules['min']){
+                $this->addError($attrib, self::RULE_MIN, ['min' => $rules['min']]);
             }
-            if($ruleName === self::RULE_MAX && strlen($value) > $rule['max']){
-                $this->addError($attrib, self::RULE_MAX, ['max' => $rule['max']]);
+            if($ruleName === self::RULE_MAX && strlen($value) > $rules['max']){
+                $this->addError($attrib, self::RULE_MAX, ['max' => $rules['max']]);
             }
-            if($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}){
-                $this->addError($attrib, self::RULE_MATCH, ['match' => $rule['match']]);
+            if($ruleName === self::RULE_MATCH && $value !== $this->{$rules['match']}){
+                $this->addError($attrib, self::RULE_MATCH, ['match' => $rules['match']]);
             }
         }        
 
     }
+    return empty($this->errors);
 } 
 
 public function addError(string $attrib ,string $rule, $params = []){
