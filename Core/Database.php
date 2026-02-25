@@ -34,15 +34,15 @@ class Database
             require_once Application::$ROOT_DIR . '/migrations/' . $migration;
             $className =  pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className();
-            echo "Applying migration $migration".PHP_EOL;
+             $this->log("Applying migration $migration".PHP_EOL);
             $instance->up();
-            echo "Applied migration $migration".PHP_EOL;
+             $this->log("Applied migration $migration".PHP_EOL);
             $newMigrations[] = $migration;
         }
         if(!empty($newMigrations)){
             $this->saveMigrations($newMigrations);
         }else{
-            echo "All Migrations are applied";
+           $this->log("All Migrations are applied");
         }
     }
 
@@ -70,5 +70,9 @@ class Database
         " );
 
         $statment->execute();
+    }
+
+    protected function log($message){
+        echo '[' . date('Y-m-d H:i:s') . '] - ' . $message . PHP_EOL;
     }
 }
