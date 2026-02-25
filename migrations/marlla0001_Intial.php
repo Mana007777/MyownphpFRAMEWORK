@@ -1,14 +1,14 @@
 <?php
 
-class Marlla0001_Initial
+class marlla0001_Intial
 {
   public function up()
   {
-    echo "Creating marlla table\n";
+    echo "Creating marlla table".PHP_EOL;
   }
 
   public function down()
   {
-    echo "Downing table";
+    echo "Downing table".PHP_EOL;
   }
 }

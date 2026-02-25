@@ -1,6 +1,6 @@
 <?php
 
-class Marlla0001_Something
+class marlla0002_Something
 {
   public function up()
   {
