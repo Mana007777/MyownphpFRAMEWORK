@@ -13,10 +13,11 @@ class User extends DbModel{
 
      public function TableName(): string
      {
-          return 'user';
+          return 'users';
      }
-     public function register(){
-         return $this->save();
+     public function save(){
+          $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+         return parent::save();
      }
 
      public function rules(): array{
