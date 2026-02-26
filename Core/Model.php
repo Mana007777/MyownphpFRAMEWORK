@@ -23,6 +23,16 @@ abstract class Model
     abstract public function rules();
 
     public array $errors = [];
+
+    public function label(): array
+    {
+        return [];
+    }
+
+    public function getLabel($attrib)
+    {
+        return $this->label[$attrib] ?? $attrib;
+    }
     public function validate()
     {
 
@@ -48,16 +58,17 @@ abstract class Model
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rules['match']}) {
                     $this->addError($attrib, self::RULE_MATCH, ['match' => $rules['match']]);
                 }
-                if ($ruleName === self::RULE_UNIQUE){
+                if ($ruleName === self::RULE_UNIQUE) {
                     $className = $rule['class'];
                     $uniqueAttrib = $rule['attribute'] ?? $attrib;
                     $tableName = $className::tableName();
                     $statement = Application::$app->db->prepare("SELECT * FROM $tableName WHERE $uniqueAttrib = :attr");
-                    $statement->bindValue(":attr" , $value);
+                    $statement->bindValue(":attr", $value);
                     $statement->execute();
                     $record = $statement->fetchObject();
-                    if ($record){}
-                     $this->addError($attrib, self::RULE_UNIQUE,['field'=>$attrib]);
+                    if ($record) {
+                    }
+                    $this->addError($attrib, self::RULE_UNIQUE, ['field' => $this->getLabel($attrib)]);
                 }
             }
         }
@@ -90,12 +101,8 @@ abstract class Model
         return $this->errors[$attrib] ?? false;
     }
 
-    public function getFirstErrors($attrib): array{
-      return $this->errors[$attrib][0] ?? false;
-    }
-
-    public function label():array 
+    public function getFirstErrors($attrib): array
     {
-        return [];
+        return $this->errors[$attrib][0] ?? false;
     }
 }
