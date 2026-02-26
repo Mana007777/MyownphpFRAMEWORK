@@ -25,7 +25,7 @@ class AuthController extends Controller
         $this->setLayout('auth');
         return $this->render('login');
     }
-
+    }
     public function register(Request $request)
     {
         $user = new User();
