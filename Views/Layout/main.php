@@ -11,6 +11,15 @@
 <body>
 
   <div class="container">
+    <?php
+
+use app\Core\Application;
+
+ if (Application::$app->session->getFlash('success')): ?>
+    <div class="alert alert-success">
+      <?php echo Application::$app->session->getFlash('success') ?>
+    </div>
+    <?php endif; ?>
     {{content}}
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
