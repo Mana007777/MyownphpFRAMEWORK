@@ -33,7 +33,8 @@ class Field{
     <div class="invalid-feedback">
       %s
     </div>
-     ', $this->attribute, 
+     ',
+    $this->model->label()[$this->attribute] ?? $this->attribute, 
      $this->type,
      $this->model->{$this->attribute},
      $this->model->hasError($this->attribute) ? ' is-invalid' : '',

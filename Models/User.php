@@ -33,4 +33,14 @@ class User extends DbModel{
      public function attributes(): array{
           return ['firstname','lastname','email','password'];
      }
+     public function label(): array
+     {
+        return [
+          'firstname'=>"First Name",
+          'lastname'=>"Last Name",
+          'email'=>"Email",
+          "password"=> "Password",
+          'confirm_password'=> "Password Confirmation"
+        ];
+     }
 }

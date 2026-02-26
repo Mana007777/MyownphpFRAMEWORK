@@ -93,4 +93,9 @@ abstract class Model
     public function getFirstErrors($attrib): array{
       return $this->errors[$attrib][0] ?? false;
     }
+
+    public function label():array 
+    {
+        return [];
+    }
 }
