@@ -24,7 +24,7 @@ class User extends DbModel{
           return [
                "firstName" => [self::RULE_REQUIRED],
                "lastName" => [self::RULE_REQUIRED],
-               "email" => [self::RULE_REQUIRED, self::RULE_EMAIL],
+               "email" => [self::RULE_REQUIRED, self::RULE_EMAIL , [self::RULE_UNIQUE , 'class'=>self::class]],
                "password" => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8]],
                "confirm_password" => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']]    
           ];

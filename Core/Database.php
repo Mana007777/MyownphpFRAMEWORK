@@ -63,6 +63,10 @@ class Database
         return $statement->fetchALl(PDO::FETCH_COLUMN);
     }
 
+    public function prepare($sql){
+        return $this->pdo->prepare($sql);
+    }
+
     public function saveMigrations(array $migrations){
         $str = implode(",",array_map(fn($m)=>"('$m')",$migrations));
         $statment = $this->pdo->prepare("INSERT INTO migrations (migrations) VALUES 
