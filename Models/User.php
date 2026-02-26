@@ -2,17 +2,21 @@
 
 namespace app\Models;
 
-use app\Core\Model;
+use app\Core\DbModel;
 
-class registerModel extends Model{
+class User extends DbModel{
      public string $firstName = '';
      public string $lastName = '';
      public string $email = '';
      public string $password = '';
      public string $confirm_password = '';
 
+     public function TableName(): string
+     {
+          return 'user';
+     }
      public function register(){
-          return "JUST CREATING A USER";
+         return $this->save();
      }
 
      public function rules(): array{
@@ -23,5 +27,9 @@ class registerModel extends Model{
                "password" => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8]],
                "confirm_password" => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']]    
           ];
+     }
+
+     public function attributes(): array{
+          return ['firstname','lastname','email','password'];
      }
 }
