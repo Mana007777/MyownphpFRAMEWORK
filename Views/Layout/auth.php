@@ -23,6 +23,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/contact">Contact</a>
           </li>
+          <?php
+
+use app\Core\Application;
+
+ if (Application::isGuest()): ?>
           <li class="nav-item">
             <a class="nav-link" href="/register">register</a>
           </li>
@@ -30,7 +35,12 @@
             <a class="nav-link" href="/login">Login</a>
           </li>
         </ul>
-
+      <?php else: ?>
+        <ul>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Welcome <?php echo Application::$app->user->getDisplayName() ?>(Logout)</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
