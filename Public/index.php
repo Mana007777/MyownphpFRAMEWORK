@@ -30,6 +30,7 @@ $app->router->get('/login', [\app\Controllers\AuthController::class,'login']);
 $app->router->post('/register', [\app\Controllers\AuthController::class,'register']);
 $app->router->get('/register', [\app\Controllers\AuthController::class,'register']);
 $app->router->get('/logout', [\app\Controllers\AuthController::class,'logout']);
+$app->router->get('/profile', [\app\Controllers\AuthController::class,'profile']);
 
 
 $app->run();

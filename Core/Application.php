@@ -4,6 +4,7 @@ namespace app\Core;
 
 class Application
 {
+    public string $layout = "main";
     public static string $ROOT_DIR;
     public string $userClass;
     public Router $router;
@@ -13,7 +14,7 @@ class Application
 
     public static Application $app;
 
-    public Controller $controller;
+    public ?Controller $controller = null;
     public Database $db;
     public Session $session;
     public ?UserModel $user;
