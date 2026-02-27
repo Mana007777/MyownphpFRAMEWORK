@@ -33,7 +33,7 @@ class Application
         if ($primaryValue) {
             $primaryKey = $this->userClass::primaryKey();
             $this->user = $this->userClass::findOne([$primaryKey => $primaryValue]);
-        }else{
+        } else {
             $this->user = null;
         }
     }
@@ -41,10 +41,12 @@ class Application
 
     public function run()
     {
-        try{
-        $this->router->resolve();
-        }catch (\Exception $e){
-            echo $this->router->renderView('_error',['exception'=>$e]);
+        try {
+            $this->router->resolve();
+        } catch (\Exception $e) {
+            $this->response->setStatusCode($e->getCode());
+
+            echo $this->router->renderView('_error', ['exception' => $e]);
         }
     }
 
@@ -71,9 +73,8 @@ class Application
         $this->user = null;
         $this->session->remove('user');
     }
-    public static function isGuest(){
+    public static function isGuest()
+    {
         return !self::$app->user;
     }
-
-    
 }
