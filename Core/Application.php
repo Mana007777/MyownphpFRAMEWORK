@@ -16,7 +16,7 @@ class Application
     public Controller $controller;
     public Database $db;
     public Session $session;
-    public ?DbModel $user;
+    public ?UserModel $user;
     public function __construct($rootPath, array $config = [])
     {
         $this->userClass = $config['userClass'];
@@ -27,7 +27,7 @@ class Application
         $this->router = new Router($this->request, $this->response);
         $this->db = new Database($config['db'] ?? []);
         $this->session = new Session();
-
+        $this->userClass = $config['userClass'];
         $primaryValue = $this->session->get('user');
         if ($primaryValue) {
             $primaryKey = $this->userClass::primaryKey();
@@ -53,7 +53,7 @@ class Application
         $this->controller = $controller;
     }
 
-    public function login(DbModel $user)
+    public function login(UserModel $user)
     {
         $this->user = $user;
         $primaryKey = $user->primaryKey();
@@ -69,4 +69,6 @@ class Application
     public static function isGuest(){
         return !self::$app->user;
     }
+
+    
 }
