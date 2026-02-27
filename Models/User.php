@@ -3,8 +3,9 @@
 namespace app\Models;
 
 use app\Core\DbModel;
+use app\Core\UserModel;
 
-class User extends DbModel{
+class User extends UserModel{
      public string $firstName = '';
      public string $lastName = '';
      public string $email = '';
@@ -23,6 +24,7 @@ class User extends DbModel{
           $this->password = password_hash($this->password, PASSWORD_DEFAULT);
          return parent::save();
      }
+     
 
      public function rules(): array{
           return [
@@ -47,4 +49,9 @@ class User extends DbModel{
           'confirm_password'=> "Password Confirmation"
         ];
      }
+
+     public function getDisplayName(): string
+     {
+          return $this->firstName. ' '.$this->lastName;
+     } 
 }
