@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use app\Core\Application;
 use app\Core\Controller;
+use app\Core\Middlwares\AuthMiddleware;
 use app\Core\Request;
 use app\Core\Response;
 use app\Models\LoginForm;
