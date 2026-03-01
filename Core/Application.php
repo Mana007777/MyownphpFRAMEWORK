@@ -18,6 +18,7 @@ class Application
     public Database $db;
     public Session $session;
     public ?UserModel $user;
+    public View $view;
     public function __construct($rootPath, array $config = [])
     {
         $this->userClass = $config['userClass'];
@@ -28,6 +29,7 @@ class Application
         $this->router = new Router($this->request, $this->response);
         $this->db = new Database($config['db'] ?? []);
         $this->session = new Session();
+        $this->view = new View();
         $this->userClass = $config['userClass'];
         $primaryValue = $this->session->get('user');
         if ($primaryValue) {
