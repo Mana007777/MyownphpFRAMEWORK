@@ -1,3 +1,8 @@
+<?php 
+
+$this->title = "Login";
+
+?>  
 <h1>Login to your account</h1>
 <?php
 

@@ -4,7 +4,11 @@
 use app\Core\form\Form;
 
 $form = Form::begin('', 'post') ?>
+<?php 
 
+$this->title = "Register";
+
+?>  
 <?php echo $form->field($model, 'firstname') ?>
 <?php echo $form->field($model, 'lastname') ?>
 <?php echo $form->field($model, 'email') ?>
