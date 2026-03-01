@@ -28,4 +28,8 @@ class ContactForm extends Model
          'body' => 'Body'
         ];
     }
+    public function send()
+    {
+      return true;
+    }
 }
