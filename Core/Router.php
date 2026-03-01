@@ -57,29 +57,17 @@ class Router
 
     public function renderContent($viewContent)
     {
-        $layoutContent = $this->layoutContent();
-        return str_replace('{{content}}', $viewContent, $layoutContent);
+        Application::$app->view->renderContent($viewContent);
     }
 
     public function layoutContent()
     {
-        $layoutContent = Application::$app->layout;
-        if (Application::$app->controller) {
-            $layout = Application::$app->controller->layout;
-        }
-        ob_start();
-        include_once Application::$ROOT_DIR . "/Views/Layout/$layout.php";
-        return ob_get_clean();
+        Application::$app->view->layoutContent();
+
     }
 
     public function renderOnlyView($view, $params = [])
     {
-
-        foreach ($params as $key => $value) {
-            $$key = $value;
-        }
-        ob_start();
-        include_once Application::$ROOT_DIR . "/Views/$view.php";
-        return ob_get_clean();
+        Application::$app->view->renderOnlyView($view , $params);
     }
 }
