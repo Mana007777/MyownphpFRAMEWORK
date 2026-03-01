@@ -4,7 +4,7 @@ namespace app\Core\form;
 
 use app\Core\Model;
 
-class Field{
+class Field extends BaseField{
 
   public const TYPE_TEXT = "text";
   public const TYPE_TEXTAREA = "textarea";
@@ -48,5 +48,10 @@ class Field{
    public function password(){
     return $this->type = self::PASSWORD;
     return $this; 
+   }
+
+   public function renderInput(): string
+   {
+    throw new \Exception('Not implemented');
    }
 }
