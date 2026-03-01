@@ -4,7 +4,8 @@ namespace app\Core\form;
 
 use app\Core\Model;
 
-class Field extends BaseField{
+class Field extends BaseField
+{
 
   public const TYPE_TEXT = "text";
   public const TYPE_TEXTAREA = "textarea";
@@ -12,46 +13,30 @@ class Field extends BaseField{
   public const TYPE_CHECKBOX = "checkbox";
   public const PASSWORD = "password";
 
-   public string $type;
-   public Model $model;
-   public string $attribute;
+  public string $type;
 
-
-   public function __construct(Model $model, string $attribute){
+  public function __construct(Model $model, string $attributes)
+  {
     $this->type = self::TYPE_TEXT;
-    $this->model = $model;
-    $this->attribute = $attribute;
-
-   }
-
-   public function __toString()
-   {
-     return sprintf('
-       <div class="mb-3">
-    <label class="form-label">%s</label>
-    <input type="text" class="form-control" name="%s">
-    <div class="invalid-feedback">
-      %s
-    </div>
-     ',
-    $this->model->getLabel($this->attribute), 
-     $this->type,
-     $this->model->{$this->attribute},
-     $this->model->hasError($this->attribute) ? ' is-invalid' : '',
-     $this->model->getFirstErrors($this->attribute));
+    parent::__construct($model, $attributes);
+  }
 
 
 
-   }
-
-
-   public function password(){
+  public function password()
+  {
     return $this->type = self::PASSWORD;
-    return $this; 
-   }
+    return $this;
+  }
 
-   public function renderInput(): string
-   {
-    throw new \Exception('Not implemented');
-   }
+  public function renderInput(): string
+  {
+    return sprintf(
+      '<input type="%s" value="%s" class="form-control%s" name="%s">',
+      $this->type,
+      $this->attribute,
+      $this->model->{$this->attribute},
+      $this->model->hasError($this->attribute) ? ' is-invalid' : '',
+    );
+  }
 }
