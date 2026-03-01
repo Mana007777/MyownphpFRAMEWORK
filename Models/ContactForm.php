@@ -13,6 +13,19 @@ class ContactForm extends Model
 
     public function rules()
     {
-        throw new \Exception('Not implemented');
+      return [
+        'subject' => [self::RULE_REQUIRED],
+        'email'=> [self::RULE_REQUIRED , self::RULE_EMAIL],
+        'body' => [self::RULE_REQUIRED],
+      ];
+    }
+
+    public function label(): array
+    {
+        return [
+         'subject' => 'Enter Your subject',
+         'email' => 'Enter Your Email',
+         'body' => 'Body'
+        ];
     }
 }
