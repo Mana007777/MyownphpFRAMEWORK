@@ -2,6 +2,8 @@
 
 namespace app\Core;
 
+use app\Core\db\Database;
+
 class Application
 {
     public string $layout = "main";
